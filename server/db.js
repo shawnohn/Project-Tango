@@ -22,4 +22,6 @@ const pool = new Pool({
   ssl: isProduction,
 })
 
+console.log(pool.connectionString)
+
 module.exports = pool
