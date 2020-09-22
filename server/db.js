@@ -23,6 +23,7 @@ const pool = new Pool({
 })
 
 console.log(process.env.NODE_ENV)
+console.log(process.env.DATABASE_URL)
 console.log(pool.connectionString)
 
 module.exports = pool
