@@ -6,7 +6,7 @@
     "postinstall": "npm --prefix client install && npm --prefix server install",
     "start:dev": "concurrently 'npm run --prefix client start' 'npm run --prefix server start'",
     "heroku-postbuild": "npm run --prefix client build",
-    "start": "cd server && NODE_ENV=production node server.js"
+    "start": "cd server && NODE_ENV=production node index"
   },
   "cacheDirectories": [
     "node_modules",
