@@ -19,10 +19,6 @@ if (process.env.NODE_ENV === 'production') {
 
 // routes
 
-app.get('/test', (req, res) => {
-  console.log('test')
-  res.json('test')
-})
 // post form
 app.post('/form', async (req, res) => {
   try {
@@ -32,7 +28,7 @@ app.post('/form', async (req, res) => {
       [description]
     )
 
-    res.json(newForm.rows[0])
+    res.status(201).json(newForm.rows[0])
   } catch (err) {
     console.error(err.message)
   }
@@ -43,7 +39,7 @@ app.get('/form', async (req, res) => {
   try {
     const { description } = req.body
     const allForm = await pool.query('select * from form')
-    res.json(allForm.rows)
+    res.status(200).json(allForm.rows)
   } catch (err) {
     console.error(err.message)
   }
@@ -54,7 +50,7 @@ app.get('/form/:id', async (req, res) => {
   try {
     const { id } = req.params
     const form = await pool.query('select * from form where form_id = $1', [id])
-    res.json(form.rows[0])
+    res.status(200).json(form.rows[0])
   } catch (err) {
     console.error(err.message)
   }
@@ -69,7 +65,7 @@ app.put('/form/:id', async (req, res) => {
       'update form set description = $1 where form_id = $2',
       [description, id]
     )
-    res.json('updated!')
+    res.status(200).json('updated!')
   } catch (err) {
     console.error(err.message)
   }
@@ -82,7 +78,7 @@ app.delete('/form/:id', async (req, res) => {
     const updateForm = await pool.query('delete from form where form_id = $1', [
       id,
     ])
-    res.json('deleted!')
+    res.status(200).json('deleted!')
   } catch (err) {
     console.error(err.message)
   }
