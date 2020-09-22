@@ -8,14 +8,9 @@
   "private": true,
   "description": "",
   "scripts": {
-    "postinstall": "npm --prefix client install && npm --prefix server install",
-    "start:dev": "concurrently 'npm run --prefix client start' 'npm run --prefix server start'",
-    "heroku-postbuild": "npm run --prefix client build",
-    "start": "cd server && NODE_ENV=production node index"
-  },
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules",
-    "server/node_modules"
-  ]
+    "prepare-client":"cd client && npm install && npm run build",
+    "prepare-server":"cd server && npm install",
+    "heroku-postbuild": "npm run prepare-client && npm run prepare-server",
+    "start": "cd server && npm start"
+  }
 }
