@@ -1,6 +1,11 @@
 {
   "name": "project-tango",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x.x",
+    "npm": "6.x.x"
+  },
+  "private": true,
   "description": "",
   "scripts": {
     "postinstall": "npm --prefix client install && npm --prefix server install",
