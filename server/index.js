@@ -19,6 +19,10 @@ if (process.env.NODE_ENV === 'production') {
 
 // routes
 
+app.get('/test', (req, res) => {
+  console.log('test')
+  res.json('test')
+})
 // post form
 app.post('/form', async (req, res) => {
   try {
