@@ -2,9 +2,10 @@ require('dotenv')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const pool = require('./db')
-
 const { join } = require('path')
+
+const formRouter = require('./routes/form')
+const fieldRouter = require('./routes/field')
 
 // middleware
 app.use(cors())
@@ -18,71 +19,8 @@ if (process.env.NODE_ENV === 'production') {
 //db config
 
 // routes
-
-// post form
-app.post('/form', async (req, res) => {
-  try {
-    const { description } = req.body
-    const newForm = await pool.query(
-      'insert into form (description) values($1) returning *',
-      [description]
-    )
-
-    res.status(201).json(newForm.rows[0])
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
-// get all forms
-app.get('/form', async (req, res) => {
-  try {
-    const { description } = req.body
-    const allForm = await pool.query('select * from form')
-    res.status(200).json(allForm.rows)
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
-// get a form
-app.get('/form/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-    const form = await pool.query('select * from form where form_id = $1', [id])
-    res.status(200).json(form.rows[0])
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
-// update a form
-app.put('/form/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-    const { description } = req.body
-    const updateForm = await pool.query(
-      'update form set description = $1 where form_id = $2',
-      [description, id]
-    )
-    res.status(200).json('updated!')
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
-// delete a form
-app.delete('/form/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-    const updateForm = await pool.query('delete from form where form_id = $1', [
-      id,
-    ])
-    res.status(200).json('deleted!')
-  } catch (err) {
-    console.error(err.message)
-  }
-})
+app.use('/form', formRouter)
+app.use('/field', fieldRouter)
 
 app.get('/*', function (req, res) {
   res.sendFile(join(__dirname, '../client/build/index.html'))
