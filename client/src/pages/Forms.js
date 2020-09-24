@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-
-// import EditForm from './EditForm'
 import axios from 'axios'
 
 const Forms = () => {
@@ -10,7 +8,7 @@ const Forms = () => {
 
   const postForm = async (e) => {
     e.preventDefault()
-    if (title == '') return
+    if (title === '') return
     try {
       const newForm = await axios.post('/form', {
         title: title,

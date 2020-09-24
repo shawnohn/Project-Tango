@@ -1,15 +1,3 @@
-// const Pool = require('pg').Pool
-
-// const pool = new Pool({
-//   user: 'postgres',
-//   password: 'dhsrltjr',
-//   host: 'localhost',
-//   port: 5432,
-//   database: 'tango',
-// })
-
-// module.exports = pool
-
 require('dotenv').config()
 
 const { Pool } = require('pg')
@@ -22,9 +10,5 @@ const pool = new Pool({
       ? process.env.DATABASE_URL
       : connectionString,
 })
-
-console.log(process.env.NODE_ENV)
-console.log(process.env.DATABASE_URL)
-console.log(pool.connectionString)
 
 module.exports = pool

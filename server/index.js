@@ -6,6 +6,7 @@ const { join } = require('path')
 
 const formRouter = require('./routes/form')
 const fieldRouter = require('./routes/field')
+const fieldTypeRouter = require('./routes/fieldType')
 
 // middleware
 app.use(cors())
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 // routes
 app.use('/form', formRouter)
 app.use('/field', fieldRouter)
+app.use('/fieldType', fieldTypeRouter)
 
 app.get('/*', function (req, res) {
   res.sendFile(join(__dirname, '../client/build/index.html'))

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Field from '../components/Field'
 import axios from 'axios'
 
-const EditForms = (props) => {
+const EditForms = () => {
   const [fields, setFields] = useState([])
   const form_id = window.localStorage.getItem('FORM_ID')
 
-  const getFields = async () => {
+  const getFields = async (id) => {
     try {
-      await axios.get(`field/${form_id}`).then(({ data }) => {
+      await axios.get(`field/${id}`).then(({ data }) => {
         setFields(data)
       })
     } catch (err) {
@@ -26,12 +27,21 @@ const EditForms = (props) => {
   }
 
   useEffect(() => {
-    getFields()
-  }, [])
+    getFields(form_id)
+  }, [form_id])
 
   return (
     <div className="container">
       <h1 className="text-center mt-5">Edit Forms</h1>{' '}
+      <Link
+        to={{
+          pathname: '/',
+        }}
+      >
+        <button type="button" className="btn btn-warning float-left">
+          Back to Forms
+        </button>
+      </Link>
       <button
         type="button"
         className="btn btn-success float-right"
@@ -53,7 +63,7 @@ const EditForms = (props) => {
             <tr key={field.field_id}>
               <td>{field.question}</td>
               <td>
-                {(field.options !== null && field.options.length) > 0
+                {field.options.length > 0
                   ? field.options.reduce((prev, curr) => prev + ', ' + curr)
                   : ''}
               </td>

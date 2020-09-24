@@ -1,25 +1,31 @@
-import React, { useState, useRef } from 'react'
-
-// import EditForm from './EditForm'
+import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 
 const Field = ({ form_id }) => {
-  const [fieldType, setFieldType] = useState(1)
-  const [options, setOptions] = useState([])
+  const [fieldType, setFieldType] = useState([])
   const [question, setQuestion] = useState('')
-  const [item, setItem] = useState('')
+  const [options, setOptions] = useState([])
+  const [optionItem, setItem] = useState('')
+  const [selectedType, setSelectedType] = useState()
+  const optionID = useRef(1)
 
-  const currentId = useRef(1)
-
-  const handleChange = (e) => {
-    setFieldType(e.target.value)
+  const getTypes = async () => {
+    try {
+      await axios.get('fieldType').then(({ data }) => {
+        setFieldType(data)
+        setSelectedType(data[0].type_id)
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 
   const addOption = () => {
-    const newOption = { id: currentId.current, item: item }
+    if (optionItem === '') return
+    const newOption = { id: optionID.current, item: optionItem }
     setOptions(options.concat(newOption))
     setItem('')
-    currentId.current += 1
+    optionID.current += 1
   }
 
   const removeOption = (id) => {
@@ -32,21 +38,30 @@ const Field = ({ form_id }) => {
     console.log(newOptions)
 
     try {
-      const newField = await axios.post('/field', {
+      await axios.post('/field', {
         form_id: form_id,
+        field_type: parseInt(selectedType),
         question: question,
         options: newOptions,
       })
-      setFieldType(1)
+      setFieldType('1')
       setQuestion('')
       setOptions([])
-      currentId.current = 1
+      optionID.current = 1
     } catch (err) {
       console.log(err.message)
     }
 
     window.location = '/EditForms'
   }
+
+  const handleChange = (e) => {
+    setSelectedType(e.target.value)
+  }
+
+  useEffect(() => {
+    getTypes()
+  }, [])
 
   return (
     <div className="modal" id="AddField">
@@ -68,12 +83,14 @@ const Field = ({ form_id }) => {
                   <td colSpan="3">
                     <select
                       className="custom-select"
-                      value={fieldType}
+                      value={selectedType}
                       onChange={handleChange}
                     >
-                      <option value="1">Short-answer Question</option>
-                      <option value="2">Long-answer Question</option>
-                      <option value="3">Multiple Choices</option>
+                      {fieldType.map((type) => (
+                        <option key={type.type_id} value={type.type_id}>
+                          {type.description}
+                        </option>
+                      ))}
                     </select>
                   </td>
                 </tr>
@@ -90,7 +107,7 @@ const Field = ({ form_id }) => {
                     ></input>
                   </td>
                 </tr>
-                {fieldType == 3 && (
+                {selectedType === '3' && (
                   <>
                     <tr>
                       <td>
@@ -100,7 +117,7 @@ const Field = ({ form_id }) => {
                         <input
                           type="text"
                           className="form-control"
-                          value={item}
+                          value={optionItem}
                           placeholder="Item"
                           onChange={(e) => setItem(e.target.value)}
                         />
