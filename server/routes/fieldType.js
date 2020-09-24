@@ -38,15 +38,4 @@ router.get('/', async (req, res) => {
 //   }
 // })
 
-// delete a field
-router.delete('/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-    await pool.query('delete from field where field_id = $1', [id])
-    res.status(200).json('deleted!')
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
 module.exports = router

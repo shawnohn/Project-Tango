@@ -30,24 +30,11 @@ router.get('/', async (req, res) => {
 // get a form
 router.get('/:id', async (req, res) => {
   try {
-    const { id } = req.params
-    const form = await pool.query('select * from form where form_id = $1', [id])
+    const { form_id } = req.params
+    const form = await pool.query('select * from form where form_id = $1', [
+      form_id,
+    ])
     res.status(200).json(form.rows[0])
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
-// get a form link
-router.get('/link/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-    const link = Math.random().toString(36).substr(2, 5)
-    const publication = await pool.query(
-      'insert into publication (form_id, link) values($1, $2) returning *',
-      [id, link]
-    )
-    res.status(200).json(publication.rows[0])
   } catch (err) {
     console.error(err.message)
   }
@@ -56,11 +43,11 @@ router.get('/link/:id', async (req, res) => {
 // update a form
 router.put('/:id', async (req, res) => {
   try {
-    const { id } = req.params
+    const { form_id } = req.params
     const { title } = req.body
     await pool.query('update form set title = $1 where form_id = $2', [
       title,
-      id,
+      form_id,
     ])
     res.status(200).json('updated!')
   } catch (err) {
@@ -71,8 +58,8 @@ router.put('/:id', async (req, res) => {
 // delete a form
 router.delete('/:id', async (req, res) => {
   try {
-    const { id } = req.params
-    await pool.query('delete from form where form_id = $1', [id])
+    const { form_id } = req.params
+    await pool.query('delete from form where form_id = $1', [form_id])
     res.status(200).json('deleted!')
   } catch (err) {
     console.error(err.message)
