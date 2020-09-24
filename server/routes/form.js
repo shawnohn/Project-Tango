@@ -20,7 +20,6 @@ router.post('/', async (req, res) => {
 // get all forms
 router.get('/', async (req, res) => {
   try {
-    // const { title } = req.body
     const allForm = await pool.query('select * from form')
     res.status(200).json(allForm.rows)
   } catch (err) {
@@ -39,15 +38,30 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// get a form link
+router.get('/link/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const link = Math.random().toString(36).substr(2, 5)
+    const publication = await pool.query(
+      'insert into publication (form_id, link) values($1, $2) returning *',
+      [id, link]
+    )
+    res.status(200).json(publication.rows[0])
+  } catch (err) {
+    console.error(err.message)
+  }
+})
+
 // update a form
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params
     const { title } = req.body
-    const updateForm = await pool.query(
-      'update form set title = $1 where form_id = $2',
-      [title, id]
-    )
+    await pool.query('update form set title = $1 where form_id = $2', [
+      title,
+      id,
+    ])
     res.status(200).json('updated!')
   } catch (err) {
     console.error(err.message)
