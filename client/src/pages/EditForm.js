@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Field from '../components/Field'
 import axios from 'axios'
 
-const EditForms = () => {
+const EditForm = () => {
   const [fields, setFields] = useState([])
   const form_id = window.localStorage.getItem('FORM_ID')
 
@@ -32,7 +32,7 @@ const EditForms = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">Edit Forms</h1>{' '}
+      <h1 className="text-center mt-4">Edit Forms</h1>{' '}
       <Link
         to={{
           pathname: '/',
@@ -50,7 +50,7 @@ const EditForms = () => {
       >
         Add Form Field
       </button>
-      <table className="table mt-5 text-center">
+      <table className="table mt-4 text-center">
         <thead>
           <tr>
             <th>Question</th>
@@ -84,4 +84,4 @@ const EditForms = () => {
   )
 }
 
-export default EditForms
+export default EditForm

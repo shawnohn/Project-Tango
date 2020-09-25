@@ -1,17 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Forms from './pages/Forms'
-import EditForms from './pages/EditForms'
+import EditForm from './pages/EditForm'
 import Preview from './pages/Preview'
 import Submit from './pages/Submit'
+import Submissions from './pages/Submissions'
 
-// function NotFound({ match }) {
-//   return (
-//     <>
-//       <h2>NotFound</h2>
-//     </>
-//   )
-// }
 function App() {
   return (
     <div className="App">
@@ -19,9 +13,9 @@ function App() {
         <div className="Contents-wrapper">
           <Switch>
             <Route exact path="/" component={Forms} />
-            <Route path="/editForms" component={EditForms} />
+            <Route path="/editform" component={EditForm} />
             <Route path="/preview" component={Preview} />
-            {/* <Route path="/submit" component={Submit} /> */}
+            <Route path="/submissions" component={Submissions} />
             <Route component={Submit} />
           </Switch>
         </div>

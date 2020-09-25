@@ -1,26 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
 
-const LinkModal = () => {
-  const [link, setLink] = useState('')
-  const form_id = window.localStorage.getItem('FORM_ID')
-
-  const getFormLink = async (id) => {
-    try {
-      await axios.get(`/publication/${id}`).then(({ data }) => {
-        setLink(
-          window.location.protocol +
-            '//' +
-            window.location.host +
-            '/' +
-            data.link
-        )
-      })
-    } catch (err) {
-      console.error(err.message)
-    }
-  }
-
+const LinkModal = ({ link }) => {
   const copyToClipboard = () => {
     var t = document.createElement('textarea')
     document.body.appendChild(t)
@@ -30,10 +10,6 @@ const LinkModal = () => {
     document.body.removeChild(t)
     alert('Copied!')
   }
-
-  useEffect(() => {
-    getFormLink(form_id)
-  }, [form_id])
 
   return (
     <div className="modal" id="GetLink">

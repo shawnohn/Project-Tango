@@ -6,6 +6,7 @@ import axios from 'axios'
 const Forms = () => {
   const [forms, setForms] = useState([])
   const [title, setTitle] = useState('')
+  const [link, setLink] = useState('')
 
   const postForm = async (e) => {
     e.preventDefault()
@@ -45,8 +46,25 @@ const Forms = () => {
     }
   }
 
-  const setLocalId = (id) => {
+  const getFormLink = async (id) => {
+    try {
+      await axios.get(`/publication/${id}`).then(({ data }) => {
+        setLink(
+          window.location.protocol +
+            '//' +
+            window.location.host +
+            '/' +
+            data.link
+        )
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const setLocalInfo = (id, title) => {
     window.localStorage.setItem('FORM_ID', id)
+    window.localStorage.setItem('FORM_TITLE', title)
   }
 
   useEffect(() => {
@@ -55,14 +73,15 @@ const Forms = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">Forms</h1>{' '}
-      <table className="table mt-5 text-center">
+      <h1 className="text-center mt-4">Forms</h1>
+      <table className="table mt-4 text-center">
         <thead>
           <tr>
             <th>Title</th>
             <th>Edit</th>
             <th>Preview</th>
             <th>Publish</th>
+            <th>Submissions</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -73,12 +92,12 @@ const Forms = () => {
               <td>
                 <Link
                   to={{
-                    pathname: '/editForms',
+                    pathname: '/editform',
                   }}
                 >
                   <button
                     className="btn btn-primary"
-                    onClick={() => setLocalId(form.form_id)}
+                    onClick={() => setLocalInfo(form.form_id, form.title)}
                   >
                     Edit
                   </button>
@@ -92,7 +111,7 @@ const Forms = () => {
                 >
                   <button
                     className="btn btn-primary"
-                    onClick={() => setLocalId(form.form_id)}
+                    onClick={() => setLocalInfo(form.form_id, form.title)}
                   >
                     Preview
                   </button>
@@ -102,12 +121,26 @@ const Forms = () => {
                 <button
                   type="button"
                   className="btn btn-success"
-                  onClick={() => setLocalId(form.form_id)}
+                  onClick={() => getFormLink(form.form_id)}
                   data-toggle="modal"
                   data-target="#GetLink"
                 >
                   Get Link
                 </button>
+              </td>
+              <td>
+                <Link
+                  to={{
+                    pathname: '/submissions',
+                  }}
+                >
+                  <button
+                    className="btn btn-info"
+                    onClick={() => setLocalInfo(form.form_id, form.title)}
+                  >
+                    View Submissions
+                  </button>
+                </Link>
               </td>
               <td>
                 <button
@@ -120,12 +153,10 @@ const Forms = () => {
             </tr>
           ))}
           <tr>
-            <td></td>
-            <td></td>
-            <td>
+            <td colSpan="6">
               <button
                 type="button"
-                className="btn btn-success"
+                className="btn btn-success float-right"
                 data-toggle="modal"
                 data-target="#AddForm"
               >
@@ -134,8 +165,9 @@ const Forms = () => {
             </td>
           </tr>
         </tbody>
+        <tfoot></tfoot>
       </table>
-      <LinkModal />
+      <LinkModal link={link} />
       <div className="modal" id="AddForm">
         <div className="modal-dialog">
           <div className="modal-content">

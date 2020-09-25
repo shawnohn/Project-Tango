@@ -52,7 +52,7 @@ const Field = ({ form_id }) => {
       console.log(err.message)
     }
 
-    window.location = '/EditForms'
+    window.location = '/editform'
   }
 
   const handleChange = (e) => {

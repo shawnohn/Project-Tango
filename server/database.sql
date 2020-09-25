@@ -56,10 +56,5 @@ CREATE TABLE submission(
 	  REFERENCES form(form_id)
 );
 
-CREATE TABLE orders (
-	id serial NOT NULL PRIMARY KEY,
-	info json NOT NULL
-);
-
 INSERT INTO fieldType(description)
 VALUES('Short-answer Question'),('Long-answer Question'),('Multiple Choices');	   

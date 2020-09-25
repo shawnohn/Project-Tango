@@ -6,6 +6,7 @@ const Preview = () => {
   const [fields, setFields] = useState([])
   const [options, setOptions] = useState([])
   const form_id = window.localStorage.getItem('FORM_ID')
+  const form_title = window.localStorage.getItem('FORM_TITLE')
 
   const getFields = async (id) => {
     try {
@@ -45,7 +46,8 @@ const Preview = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">Preview Form</h1>{' '}
+      <h1 className="text-center mt-4">Preview Form</h1>
+      <h2 className="text-center">{form_title}</h2>
       <Link
         to={{
           pathname: '/',
@@ -55,7 +57,7 @@ const Preview = () => {
           Back to Forms
         </button>
       </Link>
-      <table className="table mt-5 text-center">
+      <table className="table mt-4 text-center">
         <tbody>
           {fields.map((field) => (
             <tr key={field.field_id}>

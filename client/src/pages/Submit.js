@@ -7,6 +7,7 @@ const Submit = ({ match }) => {
   const [options, setOptions] = useState([])
   const [submission, setSubmission] = useState()
   const [isSubmitted, setSubmitted] = useState(false)
+  const [form_id, setFormId] = useState()
 
   const isValidLink = async () => {
     const link = window.location.pathname.substr(1, 5)
@@ -17,6 +18,7 @@ const Submit = ({ match }) => {
         } else {
           setValid(true)
           setFields(res.data)
+          setFormId(res.data[0].form_id)
 
           // create & set objects to store selected option
           var options = []
@@ -61,7 +63,7 @@ const Submit = ({ match }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault()
     await axios
-      .post('/submission', {
+      .post(`/submission/${form_id}`, {
         contents: submission,
       })
       .then(({ status }) => {
@@ -76,12 +78,12 @@ const Submit = ({ match }) => {
 
   return isValid ? (
     <div className="container">
-      <h1 className="text-center mt-5">Submit Form</h1>{' '}
+      <h1 className="text-center mt-4">Submit Form</h1>
       {isSubmitted ? (
-        <h1 className="text-center mt-5">Thank you for your submission!</h1>
+        <h1 className="text-center mt-4">Thank you for your submission!</h1>
       ) : (
         <form onSubmit={onSubmitForm}>
-          <table className="table mt-5 text-center">
+          <table className="table mt-4 text-center">
             <tbody>
               {fields.map((field) => (
                 <tr key={field.field_id}>
@@ -140,7 +142,7 @@ const Submit = ({ match }) => {
       )}
     </div>
   ) : (
-    <h1 className="text-center mt-5">Page Not Found</h1>
+    <h1 className="text-center mt-4">Page Not Found</h1>
   )
 }
 

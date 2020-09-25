@@ -3,46 +3,43 @@ const router = express.Router()
 const pool = require('../db')
 
 // create a submission
-router.post('/', async (req, res) => {
+router.post('/:form_id', async (req, res) => {
   try {
-    const contents = req.body
-    const newForm = await pool.query(
-      'insert into submission (contents) values($1) returning *',
-      [contents]
+    const { form_id } = req.params
+    const { contents } = req.body
+    const newSubmission = await pool.query(
+      'insert into submission (form_id, contents) values($1, $2) returning *',
+      [form_id, contents]
     )
-    // console.log(req.body)
-    // console.log(contents)
-    // const newForm = await pool.query(
-    //   'insert into submission (contents) values($1) returning *',
-    //   [contents]
-    // )
-
-    res.status(201).json(newForm.rows[0])
+    res.status(201).json(newSubmission.rows[0])
   } catch (err) {
     console.error(err.message)
   }
 })
 
-// // get all submission
-// router.get('/', async (req, res) => {
-//   try {
-//     const allForm = await pool.query('select * from form')
-//     res.status(200).json(allForm.rows)
-//   } catch (err) {
-//     console.error(err.message)
-//   }
-// })
+// get all submission
+router.get('/', async (req, res) => {
+  try {
+    const allForm = await pool.query('select * from submission')
+    res.status(200).json(allForm.rows)
+  } catch (err) {
+    console.error(err.message)
+  }
+})
 
-// // get a submission
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const { id } = req.params
-//     const form = await pool.query('select * from form where form_id = $1', [id])
-//     res.status(200).json(form.rows[0])
-//   } catch (err) {
-//     console.error(err.message)
-//   }
-// })
+// get a submission
+router.get('/:form_id', async (req, res) => {
+  try {
+    const { form_id } = req.params
+    const submissions = await pool.query(
+      'select * from submission where form_id = $1',
+      [form_id]
+    )
+    res.status(200).json(submissions.rows)
+  } catch (err) {
+    console.error(err.message)
+  }
+})
 
 // // update a submission
 // router.put('/:id', async (req, res) => {
