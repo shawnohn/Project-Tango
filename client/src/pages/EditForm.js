@@ -33,7 +33,7 @@ const EditForm = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-4">Edit Forms</h1>
+      <h1 className="text-center mt-4">Edit Form</h1>
       <h2 className="text-center">{form_title}</h2>
       <Link
         to={{
