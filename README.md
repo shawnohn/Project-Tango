@@ -1,6 +1,15 @@
 # A basic version of Google Forms
 ---
 
+# Installation
+
+`npm install`
+Or if using [yarn](https://yarnpkg.com/en/)
+`yarn install`
+
+# Live Link
+<https://project-tango-shawn.herokuapp.com/>
+
 ## Form
 ![image](https://user-images.githubusercontent.com/16888656/94226905-c9275800-fec6-11ea-88c3-9512d680eeef.png)
 
