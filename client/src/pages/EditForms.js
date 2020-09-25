@@ -9,7 +9,7 @@ const EditForms = () => {
 
   const getFields = async (id) => {
     try {
-      await axios.get(`field/${id}`).then(({ data }) => {
+      await axios.get(`/field/${id}`).then(({ data }) => {
         setFields(data)
       })
     } catch (err) {
@@ -19,7 +19,7 @@ const EditForms = () => {
 
   const deleteField = async (id) => {
     try {
-      await axios.delete(`field/${id}`)
+      await axios.delete(`/field/${id}`)
       setFields(fields.filter((field) => field.field_id !== id))
     } catch (err) {
       console.error(err.message)

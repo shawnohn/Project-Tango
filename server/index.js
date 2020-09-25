@@ -8,6 +8,7 @@ const formRouter = require('./routes/form')
 const fieldRouter = require('./routes/field')
 const fieldTypeRouter = require('./routes/fieldType')
 const publicationRouter = require('./routes/publication')
+const submissionRouter = require('./routes/submission')
 
 // middleware
 app.use(cors())
@@ -25,6 +26,7 @@ app.use('/form', formRouter)
 app.use('/field', fieldRouter)
 app.use('/fieldType', fieldTypeRouter)
 app.use('/publication', publicationRouter)
+app.use('/submission', submissionRouter)
 
 app.get('/*', function (req, res) {
   res.sendFile(join(__dirname, '../client/build/index.html'))

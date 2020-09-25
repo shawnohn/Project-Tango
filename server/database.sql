@@ -3,7 +3,8 @@
 DROP TABLE publication;
 DROP TABLE field;
 DROP TABLE fieldType;
-DROP TABLE form;
+DROP TABLE submission;
+DROP TABLE form CASCADE;
 
 CREATE TABLE form(
     form_id INT GENERATED ALWAYS AS IDENTITY,
@@ -43,6 +44,21 @@ CREATE TABLE publication(
     CONSTRAINT fk_form
       FOREIGN KEY(form_id) 
 	  REFERENCES form(form_id)
+);
+
+CREATE TABLE submission(
+    submission_id INT GENERATED ALWAYS AS IDENTITY,
+    form_id INT,
+    contents JSON NOT NULL,
+    PRIMARY KEY(submission_id),
+    CONSTRAINT fk_form
+      FOREIGN KEY(form_id) 
+	  REFERENCES form(form_id)
+);
+
+CREATE TABLE orders (
+	id serial NOT NULL PRIMARY KEY,
+	info json NOT NULL
 );
 
 INSERT INTO fieldType(description)

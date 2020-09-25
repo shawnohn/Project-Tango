@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 })
 
 // get a form
-router.get('/:id', async (req, res) => {
+router.get('/:form_id', async (req, res) => {
   try {
     const { form_id } = req.params
     const form = await pool.query('select * from form where form_id = $1', [
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // update a form
-router.put('/:id', async (req, res) => {
+router.put('/:form_id', async (req, res) => {
   try {
     const { form_id } = req.params
     const { title } = req.body
@@ -56,7 +56,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // delete a form
-router.delete('/:id', async (req, res) => {
+router.delete('/:form_id', async (req, res) => {
   try {
     const { form_id } = req.params
     await pool.query('delete from form where form_id = $1', [form_id])

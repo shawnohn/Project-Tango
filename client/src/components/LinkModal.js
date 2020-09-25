@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const LinkModal = ({ form_id }) => {
+const LinkModal = () => {
   const [link, setLink] = useState('')
+  const form_id = window.localStorage.getItem('FORM_ID')
 
   const getFormLink = async (id) => {
     try {
-      await axios.get(`form/link/${id}`).then(({ data }) => {
+      await axios.get(`/publication/${id}`).then(({ data }) => {
         setLink(
           window.location.protocol +
             '//' +
             window.location.host +
-            '/submit/' +
+            '/' +
             data.link
         )
       })

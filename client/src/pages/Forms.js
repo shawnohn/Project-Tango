@@ -6,7 +6,6 @@ import axios from 'axios'
 const Forms = () => {
   const [forms, setForms] = useState([])
   const [title, setTitle] = useState('')
-  const [form_id, setFromId] = useState('')
 
   const postForm = async (e) => {
     e.preventDefault()
@@ -28,7 +27,7 @@ const Forms = () => {
 
   const getForms = async () => {
     try {
-      await axios.get('form').then(({ data }) => {
+      await axios.get('/form').then(({ data }) => {
         setForms(data)
       })
     } catch (err) {
@@ -38,7 +37,7 @@ const Forms = () => {
 
   const deleteForm = async (id) => {
     try {
-      await axios.delete(`form/${id}`)
+      await axios.delete(`/form/${id}`)
 
       setForms(forms.filter((form) => form.form_id !== id))
     } catch (err) {
@@ -103,9 +102,9 @@ const Forms = () => {
                 <button
                   type="button"
                   className="btn btn-success"
+                  onClick={() => setLocalId(form.form_id)}
                   data-toggle="modal"
                   data-target="#GetLink"
-                  onClick={() => setFromId(form.form_id)}
                 >
                   Get Link
                 </button>
@@ -136,7 +135,7 @@ const Forms = () => {
           </tr>
         </tbody>
       </table>
-      <LinkModal form_id={form_id} />
+      <LinkModal />
       <div className="modal" id="AddForm">
         <div className="modal-dialog">
           <div className="modal-content">

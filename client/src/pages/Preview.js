@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Field from '../components/Field'
 import axios from 'axios'
 
 const Preview = () => {
@@ -10,10 +9,10 @@ const Preview = () => {
 
   const getFields = async (id) => {
     try {
-      await axios.get(`field/${id}`).then(({ data }) => {
+      await axios.get(`/field/${id}`).then(({ data }) => {
         setFields(data)
 
-        // create & set a object to contain selected option
+        // create & set objects to store selected option
         var options = []
         data.forEach((field) => {
           if (field.options.length > 0) {
@@ -46,7 +45,7 @@ const Preview = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-5">Preview Forms</h1>{' '}
+      <h1 className="text-center mt-5">Preview Form</h1>{' '}
       <Link
         to={{
           pathname: '/',
@@ -87,7 +86,6 @@ const Preview = () => {
           ))}
         </tbody>
       </table>
-      <Field form_id={form_id} />
     </div>
   )
 }

@@ -11,7 +11,7 @@ const Field = ({ form_id }) => {
 
   const getTypes = async () => {
     try {
-      await axios.get('fieldType').then(({ data }) => {
+      await axios.get('/fieldType').then(({ data }) => {
         setFieldType(data)
         setSelectedType(data[0].type_id)
       })
