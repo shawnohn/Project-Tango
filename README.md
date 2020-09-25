@@ -11,8 +11,10 @@
 ![image](https://user-images.githubusercontent.com/16888656/94227065-4bb01780-fec7-11ea-8171-e787e5a67149.png)
 
 ## Add Form Field
-![image](https://user-images.githubusercontent.com/16888656/94227107-6aaea980-fec7-11ea-9099-5882a3aa9235.png){: width="500" height"300}
-<image src="https://user-images.githubusercontent.com/16888656/94227139-874ae180-fec7-11ea-8795-1e3693c5bec7.png" width="500" height"300">
+<p align="center">
+	<img src="./images/킹덤.jpg" alt="kingdom" width="50%" height="50%"/>
+  <img src="./images/킹덤.jpg" alt="kingdom" width="50%" height="50%"/>
+</p>
 
 ## Preview Form
 ![image](https://user-images.githubusercontent.com/16888656/94227160-9893ee00-fec7-11ea-98b5-321d81f1685c.png)
