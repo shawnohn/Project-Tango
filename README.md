@@ -21,7 +21,7 @@
 ![image](https://user-images.githubusercontent.com/16888656/94227160-9893ee00-fec7-11ea-98b5-321d81f1685c.png)
 
 ## Form Publication
-<img src="https://user-images.githubusercontent.com/16888656/94227192-b5302600-fec7-11ea-8232-cc59ad19981b.png" width="30%" height="30%"/>
+<img src="https://user-images.githubusercontent.com/16888656/94227192-b5302600-fec7-11ea-8232-cc59ad19981b.png" width="40%" height="40%"/>
 
 ## Submit Form
 ![image](https://user-images.githubusercontent.com/16888656/94227226-d264f480-fec7-11ea-8569-00049ecb9e0b.png)
