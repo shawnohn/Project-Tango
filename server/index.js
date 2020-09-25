@@ -19,8 +19,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(join(__dirname, '../client/build')))
 }
 
-//db config
-
 // routes
 app.use('/form', formRouter)
 app.use('/field', fieldRouter)

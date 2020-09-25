@@ -40,30 +40,4 @@ router.get('/:form_id', async (req, res) => {
   }
 })
 
-// update a form
-router.put('/:form_id', async (req, res) => {
-  try {
-    const { form_id } = req.params
-    const { title } = req.body
-    await pool.query('update form set title = $1 where form_id = $2', [
-      title,
-      form_id,
-    ])
-    res.status(200).json('updated!')
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
-// delete a form
-router.delete('/:form_id', async (req, res) => {
-  try {
-    const { form_id } = req.params
-    await pool.query('delete from form where form_id = $1', [form_id])
-    res.status(200).json('deleted!')
-  } catch (err) {
-    console.error(err.message)
-  }
-})
-
 module.exports = router

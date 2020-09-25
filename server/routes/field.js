@@ -2,13 +2,6 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../db')
 
-// field_id SERIAL PRIMARY KEY,
-// form_id SERIAL REFERENCES form(form_id),
-// question VARCHAR(50),
-// options VARCHAR(15) [],
-// isActive BOOLEAN DEFAULT TRUE,
-// isMendotary BOOLEAN DEFAULT FALSE
-
 // create a field
 router.post('/', async (req, res) => {
   try {
@@ -32,6 +25,17 @@ router.get('/:form_id', async (req, res) => {
       [form_id]
     )
     res.status(200).json(allField.rows)
+  } catch (err) {
+    console.error(err.message)
+  }
+})
+
+// delete a field
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    await pool.query('delete from field where field_id = $1', [id])
+    res.status(200).json('deleted!')
   } catch (err) {
     console.error(err.message)
   }

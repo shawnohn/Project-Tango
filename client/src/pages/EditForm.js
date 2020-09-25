@@ -6,6 +6,7 @@ import axios from 'axios'
 const EditForm = () => {
   const [fields, setFields] = useState([])
   const form_id = window.localStorage.getItem('FORM_ID')
+  const form_title = window.localStorage.getItem('FORM_TITLE')
 
   const getFields = async (id) => {
     try {
@@ -32,7 +33,8 @@ const EditForm = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-4">Edit Forms</h1>{' '}
+      <h1 className="text-center mt-4">Edit Forms</h1>
+      <h2 className="text-center">{form_title}</h2>
       <Link
         to={{
           pathname: '/',

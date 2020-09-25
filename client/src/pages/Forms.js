@@ -36,16 +36,6 @@ const Forms = () => {
     }
   }
 
-  const deleteForm = async (id) => {
-    try {
-      await axios.delete(`/form/${id}`)
-
-      setForms(forms.filter((form) => form.form_id !== id))
-    } catch (err) {
-      console.error(err.message)
-    }
-  }
-
   const getFormLink = async (id) => {
     try {
       await axios.get(`/publication/${id}`).then(({ data }) => {
@@ -82,7 +72,6 @@ const Forms = () => {
             <th>Preview</th>
             <th>Publish</th>
             <th>Submissions</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -110,7 +99,7 @@ const Forms = () => {
                   }}
                 >
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-warning"
                     onClick={() => setLocalInfo(form.form_id, form.title)}
                   >
                     Preview
@@ -142,18 +131,10 @@ const Forms = () => {
                   </button>
                 </Link>
               </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteForm(form.form_id)}
-                >
-                  Delete
-                </button>
-              </td>
             </tr>
           ))}
           <tr>
-            <td colSpan="6">
+            <td colSpan="5">
               <button
                 type="button"
                 className="btn btn-success float-right"

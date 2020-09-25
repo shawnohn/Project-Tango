@@ -11,7 +11,6 @@ const AddForm = ({ postForm }) => {
               &times;
             </button>
           </div>
-
           <div className="modal-body">
             <label>Form Title</label>
             <input
@@ -21,7 +20,6 @@ const AddForm = ({ postForm }) => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-
           <div className="modal-footer">
             <button
               type="button"

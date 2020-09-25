@@ -7,9 +7,9 @@ const Submissions = () => {
   const form_id = window.localStorage.getItem('FORM_ID')
   const form_title = window.localStorage.getItem('FORM_TITLE')
 
-  const getSubmissions = async () => {
+  const getSubmissions = async (id) => {
     try {
-      await axios.get(`/submission/${form_id}`).then(({ data }) => {
+      await axios.get(`/submission/${id}`).then(({ data }) => {
         setSubmissions(data)
       })
     } catch (err) {
@@ -19,28 +19,28 @@ const Submissions = () => {
 
   const getContents = (contents) => {
     let string = []
-    // console.log(Object.values(contents))
     for (let key in contents) {
-      console.log(key, contents[key])
       string.push(
-        // <div className="d-flex" style={{ width: '100%' }}>
-        <table style={{ width: '100%' }}>
-          <td style={{ width: '35%' }}>
-            <p class="text-left">{key}</p>
-          </td>
-          <td style={{ width: '65%' }}>
-            <p class="text-left">{contents[key]}</p>
-          </td>
+        <table key={key} style={{ width: '100%' }}>
+          <tbody>
+            <tr>
+              <td style={{ width: '35%' }}>
+                <p className="text-left">{key}</p>
+              </td>
+              <td style={{ width: '65%' }}>
+                <p className="text-left">{contents[key]}</p>
+              </td>
+            </tr>
+          </tbody>
         </table>
       )
     }
-    console.log(string)
     return string
   }
 
   useEffect(() => {
-    getSubmissions()
-  }, [])
+    getSubmissions(form_id)
+  }, [form_id])
 
   return (
     <div className="container">

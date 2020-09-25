@@ -14,6 +14,7 @@ const Preview = () => {
         setFields(data)
 
         // create & set objects to store selected option
+        // e.g. { id: [field_id], selected: [a selected value of M.C options]}
         var options = []
         data.forEach((field) => {
           if (field.options.length > 0) {
